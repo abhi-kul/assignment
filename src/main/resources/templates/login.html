@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login page</title>
+<!--    <link th:href="@{/public/style.css}" rel="stylesheet" />-->
+    <script>
+         function createUser(username, password) {
+            var url = 'http://localhost:8081/user/save';
+            var data = JSON.stringify({ "username": username, "password" : password });
+                // Making our request
+            fetch(url, { headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },method: 'POST' , body:data})
+                .then(data => {
+                    console.log(data);
+                    if(data.status==200) {
+                        document.getElementById("successCreationUser").innerHTML = 'User Created successfully';
+                    }else {
+                        document.getElementById("successCreationUser").innerHTML = 'User Creation Failed';
+                    }
+                })
+                .catch(errorMsg => { console.log(errorMsg); });
+        }
+
+        function createMemsourceUser(username, password) {
+            var url = 'http://localhost:8081/memsourceuser/save';
+            var data = JSON.stringify({ "userName": username, "password" : password });
+            // Making our request
+            fetch(url, { headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },method: 'POST' , body:data})
+                .then(data => {
+                    console.log(data);
+                    if(data.status==200) {
+                        document.getElementById("successCreationUser").innerHTML = 'MemSourceUser Created successfully';
+                    }else {
+                        document.getElementById("successCreationUser").innerHTML = 'MemSourceUser Creation Failed';
+                    }
+                })
+                .catch(errorMsg => { console.log(errorMsg); });
+        }
+    </script>
+</head>
+<body>
+<div id="container" style="text-align: center">
+    <h2>Login page</h2>
+    <form th:action="@{/login.html}" method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autofocus="autofocus" />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <div style="padding-top: 5px"><input id="submit" type="submit" value="Log in" /></div>
+    </form>
+    <p th:if="${loginError}" class="error">Wrong user or password</p>
+    <div style="padding-top: 5px"><button onclick="createUser(document.getElementById('username').value,document.getElementById('password').value)">SignUp</button></div>
+    <div style="padding-top: 5px"><button onclick="createMemsourceUser(document.getElementById('username').value,document.getElementById('password').value)">Create/Update Memsource User</button></div>
+    <p id="successCreationUser" ></p>
+</div>
+</body>
+</html>

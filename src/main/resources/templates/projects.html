@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function getProjects(pageNumber, pageSize) {
+            var url = 'http://localhost:8081/project/getAll?pageNumber='+pageNumber+'&pageSize='+pageSize;
+            // Making our request
+            fetch(url, { method: 'GET' })
+                .then(Result => Result.json())
+                .then(data => {
+                    console.log(data)
+                        var projects = data.content;
+                        if (projects.length > 0) {
+
+                            var tr = "<tr> <th>Id</th> <th>Name</th> <th>Owner</th> <th>Source Language</th> <th>Target Languages</th> </tr>";
+                            document.getElementById("projects").innerHTML = tr;
+                            for (var i = 0; i < projects.length; i++) {
+                                var project = projects[i];
+
+                                //Creating table
+                                var table = "<tr><td>" + project.id + "" +
+                                    "</td><td>" + project.name + "" +
+                                    "</td><td>" + project.owner.firstName + "" +
+                                    "</td><td>" + project.sourceLang + "" +
+                                    "</td><td>" + project.targetLangs + "" +
+                                    "</td></tr>";
+                                //Showing the table inside tbody
+                                document.getElementById("projects").innerHTML += table;
+                            }
+
+                    } else {
+                        document.getElementById("empty").innerHTML = 'No data found for projects';
+                    }
+                })
+                .catch(errorMsg => { console.log(errorMsg); });
+        }
+
+        function run() {
+            this.getProjects(0, 50);
+        }
+        run();
+    </script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <title>Project List</title>
+</head>
+
+<body>
+<div id="container" style="text-align: center">
+    <h2>Projects Lists</h2>
+    <p id="empty"></p>
+    <table>
+        <tbody id="projects"></tbody>
+    </table>
+</div>
+</body>
+</html>

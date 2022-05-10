@@ -1,0 +1,11 @@
+-- CREATE TABLE IF NOT EXISTS USERS (
+--     `id` INT NOT NULL AUTO_INCREMENT,
+--     `name` VARCHAR(45) NOT NULL UNIQUE,
+--     `password` VARCHAR(45) NOT NULL,
+--     PRIMARY KEY(`id`, `name`));
+--
+-- CREATE TABLE IF NOT EXISTS MEMSOURCE_USERS (
+--     `username` VARCHAR(45) NOT NULL,
+--     `password` VARCHAR(45) NOT NULL,
+--     `token` VARCHAR(255) NOT NULL,
+--     PRIMARY KEY(`username`));
