@@ -1,6 +1,8 @@
-# Memsource Assignment
+# Web Application
 
-Backend platform
+Web application which provides a Login/SignUp feature. 
+
+After successful Login, we will redirect to Project listing page.
 
 ### Tech
 * Java 8
